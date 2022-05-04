@@ -40,8 +40,7 @@ SELECT *
 FROM final.life_expectancy_who
 WHERE country = 'india';
 
--- Determain which countries have the lowest life expectancy and the courses of this 
--- hepatits - b vacnies no gd  
+-- Determain which countries have the lowest life expectancy and the courses of this   
 -- From research Lesotho and Zimbabwe have the lowest life expectnacy of only 45.3. Zimbabwes main factor is measles with 529 cases reported base of a population fo a 1000 
 -- correlation between life expecancy and adult deaths
 -- Negative correlation between life expectanct HB and HIV for Lesotho- Zimbabwe = measles
@@ -55,14 +54,50 @@ group by country;
   SELECT country,  year, life_expectancy  from final.life_expectancy_who
   Where country = 'Lesotho'; 
   
+  -- What is the impact of immunixation coverage on life expectancy = population - life expectancy
+  
+  SELECT population,  MAX(life_expectancy)  from final.life_expectancy_who
+  group by population
+  ORDER BY 2 DESC; 
+  
+  -- what is the impact of schooling on the lifespan of humans - life expectancy is higher with those who had more years of schooling 
+   
+  SELECT schooling,  life_expectancy from final.life_expectancy_who
+  group by population
+  ORDER BY 1 DESC; 
+  
+   
+-- How many years from 2000 - 2015 has Zimbabwe had expenadture 
+-- 5 years of no expenitures
+
+SELECT country,  count(percentage_expenditure)  FROM final.life_expectancy_who
+WHERE percentage_expenditure > 0 AND country = 'Zimbabwe'
+group by country;
+
+
+
+SELECT  BMI,
+CASE 
+WHEN bmi < 18.5 then 'underweight'
+WHEN bmi BETWEEN 18.5 and 24.9 then 'healthy weight'
+WHEN bmi BETWEEN 25 and 29.9 then 'over weight'
+WHEN bmi BETWEEN 30 AND 87.3 then 'obese' 
+ELSE 'Unknown'
+END AS 'BMI Category'
+FROM final.life_expectancy_who
+GROUP BY bmi
+ORDER BY 1 DESC;
+
+
+   
+   SELECT country, adult_mortality, MIN(population) FROM final.life_expectancy_who;
+   
+  
+  
   
     
-   -- What are the current issues that are preventing Afghanistan from improving life expectancy in afganistan
-   
-   SELECT  year, life_expectancy, diphtheria, hepatitis_B from final.life_expectancy_who
-    Where country = 'Zimbabwe';
     
-    
+
 
     
     
